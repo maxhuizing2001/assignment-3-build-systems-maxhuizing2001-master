@@ -12,3 +12,5 @@ target_sources(lift_sim
         src/lift_up_state.cpp)
 
 include_directory(inc)
+target_compile_features(my_app PRIVATE cxx_std_20)
+set_target_properties(my_app PROPERTIES CXX_EXTENSIONS OFF)
