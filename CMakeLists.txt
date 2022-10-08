@@ -23,6 +23,10 @@ else()
     set(CXX_GNU_LIKE OFF)
 endif()
 
-
-
-Detect the compiler, if it's GNU, Clang or AppleClang set a variable GNU_COMPATIBLE to TRUE, otherwise set it to FALSE
+if (CXX_GNU_LIKE)
+    if ("${CMAKE_BUILD_TYPE}" MATCHES "Debug" OR "${CMAKE_BUILD_TYPE}" MATCHES "Release")
+        message(FATAL_ERROR "ERROR")
+    else("${CMAKE_BUILD_TYPE}" MATCHES "")
+        set(CMAKE_BUILD_TYPE "Debug")
+    endif ()
+endif ()
