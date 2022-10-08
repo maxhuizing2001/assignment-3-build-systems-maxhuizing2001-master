@@ -30,3 +30,15 @@ if (CXX_GNU_LIKE)
         set(CMAKE_BUILD_TYPE "Debug")
     endif ()
 endif ()
+
+if(CXX_GNU_LIKE)
+    target_compile_options(my_app PRIVATE -Wall -Wextra -Wpedantic -Werror)
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_compile_options(my_app PRIVATE -Og -g -fno-omit-frame-pointer)
+    elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+        target_compile_options(my_app PRIVATE -O3)
+    endif()
+endif()
+
+
+
