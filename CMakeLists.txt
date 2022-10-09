@@ -23,7 +23,7 @@ else()
     set(CXX_GNU_LIKE OFF)
 endif()
 
-if (CXX_GNU_LIKE)
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
     if ("${CMAKE_BUILD_TYPE}" MATCHES "Debug" OR "${CMAKE_BUILD_TYPE}" MATCHES "Release")
         message(FATAL_ERROR "ERROR")
     else("${CMAKE_BUILD_TYPE}" MATCHES "")
@@ -41,4 +41,14 @@ if(CXX_GNU_LIKE)
 endif()
 
 
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+    target_compile_options(my_app PRIVATE
+            # set warnings for all build types
+            $<$<CXX_COMPILER_ID:MSVC>:/Wall>
+            # debug optimisation in Debug
+            $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Release>>:/O2>
+            # O3 optimisation in Release
+            $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Debug>>:/RTC1 /Od /Zi>
+            )
 
+endif ()
